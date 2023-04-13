@@ -90,8 +90,8 @@ int main(int argc, char* argv[])
 			{
 				path_buf[0] = -2;
 				smem_dat_write_int(path_buf, 1);
-				smem_cmd_write_str("Error");
 				fprintf(stderr, "**Error: invalid command: %s\n", pbuf_cmd);
+				smem_cmd_write_str("Error");
 			}
 			else
 			{
@@ -116,8 +116,8 @@ int main(int argc, char* argv[])
 					smem_cmd_write_str("Error");
 					fprintf(stderr, "**Error: number is %d\n", rt);
 				}
-				Sleep(3000);	/* The command will be kept 3 seconds */
 			}
+			Sleep(3000);	/* The command will be kept 3 seconds */
 			*pbuf_cmd = '\0';
 		}
 	}
