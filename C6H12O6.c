@@ -88,6 +88,9 @@ int main(int argc, char* argv[])
 			}
 			else if (sscanf(pbuf_cmd, "%*s%d%d", &x0, &y0) != 2)
 			{
+				path_buf[0] = -2;
+				smem_dat_write_int(path_buf, 1);
+				smem_cmd_write_str("Error");
 				fprintf(stderr, "**Error: invalid command: %s\n", pbuf_cmd);
 			}
 			else
