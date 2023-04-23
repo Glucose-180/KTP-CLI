@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <Windows.h>
+#include <stdint.h>
 
 #define SIZE 8	/* size of the board */
 #define NDIR 8	/* number of directions */
@@ -42,7 +43,7 @@ void display(const int I);
 
 int smem_init(void);
 int smem_cmd_write_str(const char* str);
-int smem_dat_write_int(const int* dat, const DWORD Size);
+int smem_dat_write_int(const int32_t* dat, const DWORD Size);
 void smem_free(void);
 
 #endif

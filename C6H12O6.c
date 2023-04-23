@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	FILE* fp;
 	clock_t time_start;
 	double time_used;
-	int path_buf[SIZE * SIZE];
+	int32_t path_buf[SIZE * SIZE];
 	int i;
 
 	fp = stdout;

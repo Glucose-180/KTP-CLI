@@ -16,7 +16,7 @@ LPCSTR Smem_name_dat = "ktp_dat_g";
 
 static HANDLE hMapFile_cmd, hMapFile_dat;
 char* pbuf_cmd;
-static int* pbuf_dat;
+static int32_t* pbuf_dat;
 
 /* initialize shared memory */
 int smem_init()
@@ -46,7 +46,7 @@ int smem_init()
 		0,
 		Cmd_buf_size
 	);
-	pbuf_dat = (int *)MapViewOfFile(
+	pbuf_dat = (int32_t *)MapViewOfFile(
 		hMapFile_dat,
 		FILE_MAP_ALL_ACCESS,
 		0,
@@ -70,7 +70,7 @@ int smem_cmd_write_str(const char* str)
 	}
 }
 
-int smem_dat_write_int(const int* dat, const DWORD Size)
+int smem_dat_write_int(const int32_t* dat, const DWORD Size)
 {
 	DWORD i;
 
