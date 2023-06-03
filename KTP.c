@@ -2,8 +2,9 @@
 
 const dir_t dir[NDIR] = { {1,2},{2,1},{2,-1},{1,-2},{-1,-2},{-2,-1},{-2,1},{-1,2} };
 step_t path[SIZE * SIZE];	/* path stack */
-char board[SIZE][SIZE];
+static char board[SIZE][SIZE];
 static int tsp;				/* stack pointer */
+int use_wdf = 0;	/* Warnsdorff's Algorithm or normally greedy */
 
 static inline int is_reachable(const short int X, const short int Y)
 {
@@ -109,15 +110,37 @@ void dir_sort(short int* next_dir, const short int X, const short int Y)
 					++count_of_reachable[i];
 			}
 	}
+
 	/* do shellsort */
-	for (g = NDIR / 2; g > 0; g /= 2)
-		for (i = g; i < NDIR; ++i)
-			for (j = i - g; j >= 0 && count_of_reachable[next_dir[j]] < count_of_reachable[next_dir[j + g]]; j -= g)
-			{
-				temp = next_dir[j];
-				next_dir[j] = next_dir[j + g];
-				next_dir[j + g] = temp;
-			}
+	if (use_wdf != 0)
+	{	/* Warnsdorff's Algorithm */
+		for (g = NDIR / 2; g > 0; g /= 2)
+			for (i = g; i < NDIR; ++i)
+				for (j = i - g; j >= 0 && !(
+					(count_of_reachable[next_dir[j]] > 0 &&
+						count_of_reachable[next_dir[j]] <= count_of_reachable[next_dir[j + g]])
+					||
+					count_of_reachable[next_dir[j + g]] <= 0 &&
+					count_of_reachable[next_dir[j]] > count_of_reachable[next_dir[j + g]]);
+					j -= g)
+				{
+					temp = next_dir[j];
+					next_dir[j] = next_dir[j + g];
+					next_dir[j + g] = temp;
+				}
+	}
+	else
+	{	/* Normally greedy */
+		for (g = NDIR / 2; g > 0; g /= 2)
+			for (i = g; i < NDIR; ++i)
+				for (j = i - g; j >= 0 && count_of_reachable[next_dir[j]] < count_of_reachable[next_dir[j + g]]; j -= g)
+				{
+					temp = next_dir[j];
+					next_dir[j] = next_dir[j + g];
+					next_dir[j + g] = temp;
+				}
+	}
+
 	/* set the decade of next_dir[i] according to its count_of_reachable value */
 	for (i = 0; i < NDIR; ++i)
 	{

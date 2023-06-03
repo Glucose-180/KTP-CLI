@@ -31,6 +31,7 @@ typedef struct step_t {
 
 extern const dir_t dir[NDIR];
 extern step_t path[SIZE * SIZE];	/* path stack */
+extern int use_wdf;
 
 extern char debug_en;
 extern char backstage_en;

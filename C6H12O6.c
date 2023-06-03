@@ -27,6 +27,8 @@ int main(int argc, char* argv[])
 			backstage_en = 1;
 			debug_en = 0;
 		}
+		else if (strcmp(*argv, "-q") == 0)
+			use_wdf = 1;
 		else
 		{
 			fp = fopen(*argv, "w");
